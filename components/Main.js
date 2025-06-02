@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import { useNavigation } from '@react-navigation/native';
 
 const Button = ({ children, onPress, variant = 'primary', disabled = false, style = {} }) => {
   const baseStyle = {
@@ -49,7 +48,7 @@ const Button = ({ children, onPress, variant = 'primary', disabled = false, styl
   );
 };
 
-export default function App() {
+export default function Main({ navigation }) {
   const [date, setDate] = useState(new Date());
   const [dob, setDob] = useState('');
   const [age, setAge] = useState(null);
@@ -96,36 +95,33 @@ export default function App() {
     setShowPicker(false);
   };
 
-const handleSubmit = () => {
-  if (!dob || age === null) {
-    Alert.alert('Error', 'Please select a valid date of birth.');
-    return;
-  }
+  const handleSubmit = () => {
+    if (!dob || age === null) {
+      Alert.alert('Error', 'Please select a valid date of birth.');
+      return;
+    }
 
-  if (age >= 3 && age <= 4) {
-    Alert.alert(
-      'Success',
-      `The child is ${age} year${age !== 1 ? 's' : ''} old and is eligible to enroll. Do you want to proceed to registration?`,
-      [
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          text: 'Proceed',
-          onPress: () => {
-            // Navigate to the registration screen
-            // Assuming you have set up React Navigation
-            const navigation = useNavigation('Registration', { dob, age });
+    if (age >= 3 && age <= 4) {
+      Alert.alert(
+        'Success',
+        `The child is ${age} year${age !== 1 ? 's' : ''} old and is eligible to enroll. Do you want to proceed to registration?`,
+        [
+          {
+            text: 'Cancel',
+            style: 'cancel',
           },
-        },
-      ]
-    );
-  } else {
-    Alert.alert('Error', 'The child must be between 3 and 4 years old to enroll.');
-  }
-};
-
+          {
+            text: 'Proceed',
+            onPress: () => {
+              navigation.navigate('Registration', { dob, age });
+            },
+          },
+        ]
+      );
+    } else {
+      Alert.alert('Error', 'The child must be between 3 and 4 years old to enroll.');
+    }
+  };
 
   const showDatePicker = () => {
     Keyboard.dismiss();
@@ -264,3 +260,4 @@ const styles = StyleSheet.create({
     width: '45%',
   },
 });
+
