@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   agreementText: {
-    fontSize: 30,
+    fontSize: 25,
     color: "#000000",
     lineHeight: 20,
     marginBottom: 30,
