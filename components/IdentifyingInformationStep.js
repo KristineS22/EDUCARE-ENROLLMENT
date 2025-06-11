@@ -124,7 +124,12 @@ export default function IdentifyingInformationStep({ route }) {
     </View>
   );
 
-  const DropdownPicker = ({ selectedValue, onValueChange, options, sublabel }) => (
+  const DropdownPicker = ({
+    selectedValue,
+    onValueChange,
+    options,
+    sublabel,
+  }) => (
     <View style={styles.fieldContainer}>
       <View style={styles.pickerContainer}>
         <Picker
@@ -133,7 +138,11 @@ export default function IdentifyingInformationStep({ route }) {
           style={styles.picker}
         >
           {options.map((option, index) => (
-            <Picker.Item key={index} label={option.label} value={option.value} />
+            <Picker.Item
+              key={index}
+              label={option.label}
+              value={option.value}
+            />
           ))}
         </Picker>
       </View>
@@ -141,7 +150,13 @@ export default function IdentifyingInformationStep({ route }) {
     </View>
   );
 
-  const InputField = ({ value, onChangeText, placeholder, sublabel, editable = true }) => (
+  const InputField = ({
+    value,
+    onChangeText,
+    placeholder,
+    sublabel,
+    editable = true,
+  }) => (
     <View style={styles.fieldContainer}>
       <TextInput
         style={[styles.input, !editable && { backgroundColor: "#f0f0f0" }]}
@@ -155,9 +170,9 @@ export default function IdentifyingInformationStep({ route }) {
     </View>
   );
 
-  return (
+  return (  
     <SafeAreaView style={styles.safeArea}>
-      <KeyboardAvoidingView 
+      <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
@@ -462,8 +477,9 @@ const styles = StyleSheet.create({
   column2: {
     flexDirection: "row",
     flexWrap: "wrap",
-    justifyContent: "space-between",
+    justifyContent: "flex-start",
     marginBottom: 10,
+    gap: 15,
   },
   inputWrapper: {
     width: "19%",
@@ -488,7 +504,7 @@ const styles = StyleSheet.create({
   pickerContainer: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#d1d5db",
     borderRadius: 6,
     backgroundColor: "#fff",
     minHeight: 40,

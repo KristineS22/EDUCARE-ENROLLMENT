@@ -223,8 +223,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#00188D",
     marginBottom: 0,
-    elevation: 4,
-    padding: 16,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)', // Dark gray/black with 40% opacity for a subtle shadow
+  textShadowOffset: { width: 2, height: 3 }, // Shadow offset: 2 units to the right, 2 units down
+  textShadowRadius: 3,
   },
   stepperContainer: {
     flex: 1,
