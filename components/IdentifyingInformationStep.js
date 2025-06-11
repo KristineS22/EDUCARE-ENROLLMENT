@@ -72,63 +72,85 @@ export default function IdentifyingInformationStep({ route }) {
     setForm({ ...form, [name]: value });
   };
 
-  const renderRadioGroup = (name, selected) => (
-    <View style={styles.radioGroup}>
-      <TouchableOpacity
-        onPress={() => handleChange(name, "Male")}
-        style={styles.radioButton}
-      >
-        <View style={styles.circle}>
-          {selected === "Male" && <View style={styles.checked} />}
-        </View>
-        <Text style={styles.radioText}>Male</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleChange(name, "Female")}
-        style={styles.radioButton}
-      >
-        <View style={styles.circle}>
-          {selected === "Female" && <View style={styles.checked} />}
-        </View>
-        <Text style={styles.radioText}>Female</Text>
-      </TouchableOpacity>
+  const renderRadioGroup = (name, selected, sublabel) => (
+    <View style={styles.fieldContainer}>
+      <View style={styles.radioGroup}>
+        <TouchableOpacity
+          onPress={() => handleChange(name, "Male")}
+          style={styles.radioButton}
+        >
+          <View style={styles.circle}>
+            {selected === "Male" && <View style={styles.checked} />}
+          </View>
+          <Text style={styles.radioText}>Male</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleChange(name, "Female")}
+          style={styles.radioButton}
+        >
+          <View style={styles.circle}>
+            {selected === "Female" && <View style={styles.checked} />}
+          </View>
+          <Text style={styles.radioText}>Female</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.sublabel}>{sublabel}</Text>
     </View>
   );
 
-  const renderYesNoRadioGroup = (name, selected) => (
-    <View style={styles.radioGroup}>
-      <TouchableOpacity
-        onPress={() => handleChange(name, "Yes")}
-        style={styles.radioButton}
-      >
-        <View style={styles.circle}>
-          {selected === "Yes" && <View style={styles.checked} />}
-        </View>
-        <Text style={styles.radioText}>Yes</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => handleChange(name, "No")}
-        style={styles.radioButton}
-      >
-        <View style={styles.circle}>
-          {selected === "No" && <View style={styles.checked} />}
-        </View>
-        <Text style={styles.radioText}>No</Text>
-      </TouchableOpacity>
+  const renderYesNoRadioGroup = (name, selected, sublabel) => (
+    <View style={styles.fieldContainer}>
+      <View style={styles.radioGroup}>
+        <TouchableOpacity
+          onPress={() => handleChange(name, "Yes")}
+          style={styles.radioButton}
+        >
+          <View style={styles.circle}>
+            {selected === "Yes" && <View style={styles.checked} />}
+          </View>
+          <Text style={styles.radioText}>Yes</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => handleChange(name, "No")}
+          style={styles.radioButton}
+        >
+          <View style={styles.circle}>
+            {selected === "No" && <View style={styles.checked} />}
+          </View>
+          <Text style={styles.radioText}>No</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.sublabel}>{sublabel}</Text>
     </View>
   );
 
-  const DropdownPicker = ({ selectedValue, onValueChange, options }) => (
-    <View style={styles.pickerContainer}>
-      <Picker
-        selectedValue={selectedValue}
-        onValueChange={onValueChange}
-        style={styles.picker}
-      >
-        {options.map((option, index) => (
-          <Picker.Item key={index} label={option.label} value={option.value} />
-        ))}
-      </Picker>
+  const DropdownPicker = ({ selectedValue, onValueChange, options, sublabel }) => (
+    <View style={styles.fieldContainer}>
+      <View style={styles.pickerContainer}>
+        <Picker
+          selectedValue={selectedValue}
+          onValueChange={onValueChange}
+          style={styles.picker}
+        >
+          {options.map((option, index) => (
+            <Picker.Item key={index} label={option.label} value={option.value} />
+          ))}
+        </Picker>
+      </View>
+      <Text style={styles.sublabel}>{sublabel}</Text>
+    </View>
+  );
+
+  const InputField = ({ value, onChangeText, placeholder, sublabel, editable = true }) => (
+    <View style={styles.fieldContainer}>
+      <TextInput
+        style={[styles.input, !editable && { backgroundColor: "#f0f0f0" }]}
+        placeholder={placeholder}
+        value={value}
+        onChangeText={onChangeText}
+        editable={editable}
+      />
+      <Text style={styles.sublabel}>{sublabel}</Text>
     </View>
   );
 
@@ -152,35 +174,35 @@ export default function IdentifyingInformationStep({ route }) {
           <Text style={styles.label}>Facility Location</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Name of Facility"
+              <InputField
                 value={form.facilityName}
                 onChangeText={(text) => handleChange("facilityName", text)}
+                placeholder="Enter facility name"
+                sublabel="Name of Facility"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Barangay"
+              <InputField
                 value={form.barangay}
                 onChangeText={(text) => handleChange("barangay", text)}
+                placeholder="Enter barangay"
+                sublabel="Barangay"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="City / Municipality"
+              <InputField
                 value={form.city}
                 onChangeText={(text) => handleChange("city", text)}
+                placeholder="Enter city/municipality"
+                sublabel="City / Municipality"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Province"
+              <InputField
                 value={form.province}
                 onChangeText={(text) => handleChange("province", text)}
+                placeholder="Enter province"
+                sublabel="Province"
               />
             </View>
             <View style={styles.inputWrapper}>
@@ -188,6 +210,7 @@ export default function IdentifyingInformationStep({ route }) {
                 selectedValue={form.region}
                 onValueChange={(value) => handleChange("region", value)}
                 options={regionOptions}
+                sublabel="Region"
               />
             </View>
           </View>
@@ -196,42 +219,44 @@ export default function IdentifyingInformationStep({ route }) {
           <Text style={styles.label}>Name</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Last Name"
+              <InputField
                 value={form.lastName}
                 onChangeText={(text) => handleChange("lastName", text)}
+                placeholder="Enter last name"
+                sublabel="Last Name"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="First Name"
+              <InputField
                 value={form.firstName}
                 onChangeText={(text) => handleChange("firstName", text)}
+                placeholder="Enter first name"
+                sublabel="First Name"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Middle Name"
+              <InputField
                 value={form.middleName}
                 onChangeText={(text) => handleChange("middleName", text)}
+                placeholder="Enter middle name"
+                sublabel="Middle Name (Optional)"
               />
             </View>
             <View style={styles.inputWrapper}>
               <DropdownPicker
                 selectedValue={form.suffix}
                 onValueChange={(value) => handleChange("suffix", value)}
+                placeholder="Jr., Sr., ect."
                 options={suffixOptions}
+                sublabel="Ext. (Jr., Sr., ect.) (Optional)"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Nickname"
+              <InputField
                 value={form.nickname}
                 onChangeText={(text) => handleChange("nickname", text)}
+                placeholder="Enter nickname"
+                sublabel="Nickname"
               />
             </View>
           </View>
@@ -256,7 +281,7 @@ export default function IdentifyingInformationStep({ route }) {
 
             {/* Number of Siblings */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Number of Siblings</Text>
+              <Text style={styles.label}>No. of Siblings</Text>
               <DropdownPicker
                 selectedValue={form.siblings}
                 onValueChange={(value) => handleChange("siblings", value)}
@@ -267,54 +292,53 @@ export default function IdentifyingInformationStep({ route }) {
             {/* Date of Birth */}
             <View style={styles.inputWrapper}>
               <Text style={styles.label}>Date of Birth</Text>
-              <TextInput
-                style={[styles.input, { backgroundColor: "#f0f0f0" }]}
-                placeholder="Date of Birth"
+              <InputField
                 value={form.dob}
+                onChangeText={() => {}}
                 editable={false}
               />
             </View>
 
             {/* Birth Registration */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Birth Registration</Text>
+              <Text style={styles.label}>Birth Registered?</Text>
               {renderYesNoRadioGroup("birthRegistered", form.birthRegistered)}
             </View>
           </View>
 
           {/* Place of Birth */}
-          <Text style={styles.label}>Place of Birth</Text>
+          <Text style={styles.label}>Birthplace</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Street"
+              <InputField
                 value={form.birthStreet}
                 onChangeText={(text) => handleChange("birthStreet", text)}
+                placeholder="Enter street address"
+                sublabel="No. & Street Address"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Barangay"
+              <InputField
                 value={form.birthBarangay}
                 onChangeText={(text) => handleChange("birthBarangay", text)}
+                placeholder="Enter barangay"
+                sublabel="Barangay"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="City / Municipality"
+              <InputField
                 value={form.birthCity}
                 onChangeText={(text) => handleChange("birthCity", text)}
+                placeholder="Enter city/municipality"
+                sublabel="City / Municipality"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Province"
+              <InputField
                 value={form.birthProvince}
                 onChangeText={(text) => handleChange("birthProvince", text)}
+                placeholder="Enter province"
+                sublabel="Province"
               />
             </View>
             <View style={styles.inputWrapper}>
@@ -322,6 +346,7 @@ export default function IdentifyingInformationStep({ route }) {
                 selectedValue={form.birthRegion}
                 onValueChange={(value) => handleChange("birthRegion", value)}
                 options={regionOptions}
+                sublabel="Region"
               />
             </View>
           </View>
@@ -330,35 +355,35 @@ export default function IdentifyingInformationStep({ route }) {
           <Text style={styles.label}>Home Address</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Street"
+              <InputField
                 value={form.homeStreet}
                 onChangeText={(text) => handleChange("homeStreet", text)}
+                placeholder="Enter street address"
+                sublabel="No. & Street Address"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Barangay"
+              <InputField
                 value={form.homeBarangay}
                 onChangeText={(text) => handleChange("homeBarangay", text)}
+                placeholder="Enter barangay"
+                sublabel="Barangay"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="City / Municipality"
+              <InputField
                 value={form.homeCity}
                 onChangeText={(text) => handleChange("homeCity", text)}
+                placeholder="Enter city/municipality"
+                sublabel="City / Municipality"
               />
             </View>
             <View style={styles.inputWrapper}>
-              <TextInput
-                style={styles.input}
-                placeholder="Province"
+              <InputField
                 value={form.homeProvince}
                 onChangeText={(text) => handleChange("homeProvince", text)}
+                placeholder="Enter province"
+                sublabel="Province"
               />
             </View>
             <View style={styles.inputWrapper}>
@@ -366,6 +391,7 @@ export default function IdentifyingInformationStep({ route }) {
                 selectedValue={form.homeRegion}
                 onValueChange={(value) => handleChange("homeRegion", value)}
                 options={regionOptions}
+                sublabel="Region"
               />
             </View>
           </View>
@@ -446,6 +472,9 @@ const styles = StyleSheet.create({
     width: "19%",
     marginBottom: 10,
   },
+  fieldContainer: {
+    flex: 1,
+  },
   input: {
     flex: 1,
     borderWidth: 1,
@@ -502,5 +531,12 @@ const styles = StyleSheet.create({
     width: 10,
     borderRadius: 5,
     backgroundColor: "#000",
+  },
+  sublabel: {
+    fontSize: 11,
+    color: "#000",
+    marginTop: 4,
+    textAlign: "left",
+    fontWeight: "450",
   },
 });
