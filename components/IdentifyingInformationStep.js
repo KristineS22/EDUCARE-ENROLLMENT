@@ -146,6 +146,7 @@ export default function IdentifyingInformationStep({ route }) {
       <TextInput
         style={[styles.input, !editable && { backgroundColor: "#f0f0f0" }]}
         placeholder={placeholder}
+        placeholderTextColor="#A0A0A0"
         value={value}
         onChangeText={onChangeText}
         editable={editable}
@@ -171,7 +172,7 @@ export default function IdentifyingInformationStep({ route }) {
           <Text style={styles.sectionTitle}>I. Identifying Information</Text>
 
           {/* Facility Location */}
-          <Text style={styles.label}>Facility Location</Text>
+          <Text style={styles.label}>Facility Location *</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
               <InputField
@@ -216,7 +217,7 @@ export default function IdentifyingInformationStep({ route }) {
           </View>
 
           {/* Name */}
-          <Text style={styles.label}>Name</Text>
+          <Text style={styles.label}>Name *</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
               <InputField
@@ -265,13 +266,13 @@ export default function IdentifyingInformationStep({ route }) {
           <View style={styles.column5}>
             {/* Sex */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Sex</Text>
+              <Text style={styles.label}>Sex *</Text>
               {renderRadioGroup("sex", form.sex)}
             </View>
 
             {/* Birth Order */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Birth Order</Text>
+              <Text style={styles.label}>Birth Order *</Text>
               <DropdownPicker
                 selectedValue={form.birthOrder}
                 onValueChange={(value) => handleChange("birthOrder", value)}
@@ -281,7 +282,7 @@ export default function IdentifyingInformationStep({ route }) {
 
             {/* Number of Siblings */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>No. of Siblings</Text>
+              <Text style={styles.label}>No. of Siblings *</Text>
               <DropdownPicker
                 selectedValue={form.siblings}
                 onValueChange={(value) => handleChange("siblings", value)}
@@ -291,7 +292,7 @@ export default function IdentifyingInformationStep({ route }) {
 
             {/* Date of Birth */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Date of Birth</Text>
+              <Text style={styles.label}>Date of Birth *</Text>
               <InputField
                 value={form.dob}
                 onChangeText={() => {}}
@@ -301,13 +302,13 @@ export default function IdentifyingInformationStep({ route }) {
 
             {/* Birth Registration */}
             <View style={styles.inputWrapper}>
-              <Text style={styles.label}>Birth Registered?</Text>
+              <Text style={styles.label}>Birth Registered? *</Text>
               {renderYesNoRadioGroup("birthRegistered", form.birthRegistered)}
             </View>
           </View>
 
           {/* Place of Birth */}
-          <Text style={styles.label}>Birthplace</Text>
+          <Text style={styles.label}>Birthplace *</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
               <InputField
@@ -352,7 +353,7 @@ export default function IdentifyingInformationStep({ route }) {
           </View>
 
           {/* Home Address */}
-          <Text style={styles.label}>Home Address</Text>
+          <Text style={styles.label}>Home Address *</Text>
           <View style={styles.column5}>
             <View style={styles.inputWrapper}>
               <InputField
@@ -399,7 +400,7 @@ export default function IdentifyingInformationStep({ route }) {
           {/* Religion and Ethnicity */}
           <View style={styles.column2}>
             <View style={styles.inputWrapper2}>
-              <Text style={styles.label}>Religion</Text>
+              <Text style={styles.label}>Religion *</Text>
               <DropdownPicker
                 selectedValue={form.religion}
                 onValueChange={(value) => handleChange("religion", value)}
@@ -407,7 +408,7 @@ export default function IdentifyingInformationStep({ route }) {
               />
             </View>
             <View style={styles.inputWrapper2}>
-              <Text style={styles.label}>Ethnicity</Text>
+              <Text style={styles.label}>Ethnicity *</Text>
               <DropdownPicker
                 selectedValue={form.ethnicity}
                 onValueChange={(value) => handleChange("ethnicity", value)}
@@ -503,11 +504,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 10,
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: "#fff",
     borderRadius: 6,
     backgroundColor: "#fff",
     minHeight: 40,
-    gap: 20,
+    gap: 25,
   },
   radioButton: {
     flexDirection: "row",
@@ -528,10 +529,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   checked: {
-    height: 10,
-    width: 10,
-    borderRadius: 5,
-    backgroundColor: "#000",
+    height: 15,
+    width: 15,
+    borderRadius: 9,
+    backgroundColor: "#00188D",
   },
   sublabel: {
     fontSize: 11,
