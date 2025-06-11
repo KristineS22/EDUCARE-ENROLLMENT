@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native"; // Fixed imports
 
 // Import step components (you'll create these files)
 import AgreementStep from "./AgreementStep";
@@ -19,8 +20,10 @@ import FamilyInformationStep from "./FamilyInformationStep";
 // import ClassScheduleStep from "./ClassScheduleStep";
 // import FinishedStep from "./FinishedStep";
 
-export default function PreRegistrationScreen({ route, navigation }) {
-  const { dob, age } = route.params || {};
+export default function PreRegistrationScreen() {
+  const navigation = useNavigation(); // Fixed variable name
+  const route = useRoute(); // Use route to get params
+  const { dob, age } = route.params || {}; // Get params from route with fallback
   const [currentStep, setCurrentStep] = useState(0);
   const [isAgreed, setIsAgreed] = useState(false);
 
@@ -82,12 +85,7 @@ export default function PreRegistrationScreen({ route, navigation }) {
   };
 
   const handleCancel = () => {
-    // Navigate back to previous screen or show confirmation dialog
-    if (navigation) {
-      navigation.goBack();
-    } else {
-      console.log("Cancel pressed - navigate back");
-    }
+    navigation.goBack(); // Fixed method name
   };
 
   // Render current step content
@@ -104,16 +102,17 @@ export default function PreRegistrationScreen({ route, navigation }) {
         return <IdentifyingInformationStep dob={dob} age={age} />;
       case 2:
         return <FamilyInformationStep />;
-      case 3:
-        return <DevelopmentInformationStep />;
-      case 4:
-        return <BillingStep />;
-      case 5:
-        return <ClassScheduleStep />;
-      case 6:
-        return <FinishedStep />;
+      // Uncomment when you create these components:
+      // case 3:
+      //   return <DevelopmentInformationStep />;
+      // case 4:
+      //   return <BillingStep />;
+      // case 5:
+      //   return <ClassScheduleStep />;
+      // case 6:
+      //   return <FinishedStep />;
       default:
-        return null;
+        return <Text>Step {currentStep + 1} - Coming Soon</Text>;
     }
   };
 
@@ -151,7 +150,12 @@ export default function PreRegistrationScreen({ route, navigation }) {
 
         {/* Main Content Area */}
         <View style={styles.mainContent}>
-          <ScrollView style={styles.formContainer}>
+          <ScrollView 
+            style={styles.formContainer}
+            showsVerticalScrollIndicator={true}
+            bounces={false}
+            contentContainerStyle={styles.scrollContent}
+          >
             {renderStepContent()}
           </ScrollView>
 
@@ -223,9 +227,9 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#00188D",
     marginBottom: 0,
-    textShadowColor: 'rgba(0, 0, 0, 0.4)', // Dark gray/black with 40% opacity for a subtle shadow
-  textShadowOffset: { width: 2, height: 3 }, // Shadow offset: 2 units to the right, 2 units down
-  textShadowRadius: 3,
+    textShadowColor: 'rgba(0, 0, 0, 0.4)',
+    textShadowOffset: { width: 2, height: 3 },
+    textShadowRadius: 3,
   },
   stepperContainer: {
     flex: 1,
@@ -233,7 +237,7 @@ const styles = StyleSheet.create({
   },
   stepContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 12,
+    paddingVertical: 18,
     position: "relative",
   },
   stepRow: {
@@ -246,7 +250,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#e9ecef",
     marginRight: 12,
-    marginTop: 24,
+    marginTop: 9, //fsffddsffsdf
+    marginBottom: 8,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -272,12 +277,12 @@ const styles = StyleSheet.create({
   },
   stepConnector: {
     position: "absolute",
-    left: 28, // Moved closer to circle (was 30)
-    top: 38, // Started closer to circle (was 44)
-    marginTop: 23 ,
-    width: 2.5, // Made thicker (was 2)
-    height: 40, // Made longer for better visibility (was 40)
-    backgroundColor: "#d1d5db", // Made more visible (was #e9ecef)
+    left: 29,
+    top: 32,
+    marginTop: 19, //dsffsdfddfsdsdsffd
+    width: 2.5,
+    height: 45,
+    backgroundColor: "#d1d5db",
     padding: "0px 0px 0px 0px",
   },
   completedConnector: {
@@ -290,6 +295,7 @@ const styles = StyleSheet.create({
   formContainer: {
     flex: 1,
     padding: 24,
+    paddingBottom: 0, // Remove bottom padding to avoid scroll issues
   },
   actionContainer: {
     flexDirection: "row",
@@ -331,5 +337,9 @@ const styles = StyleSheet.create({
   },
   disabledButtonText: {
     color: "#6c757d",
+  },
+  scrollContent: {
+    flexGrow: 1,
+    paddingBottom: 20, // Add padding at the bottom for better scroll experience
   },
 });

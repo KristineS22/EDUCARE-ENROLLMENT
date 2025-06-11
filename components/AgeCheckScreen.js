@@ -1,23 +1,24 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native"; // Fixed imports
 
-export default function AgeCheckScreen({ navigation, route }) {
-  // Get the data passed from DateOfBirthPicker
-  const { dob, age } = route.params || {};
+export default function AgeCheckScreen() {
+  const navigation = useNavigation(); // Fixed variable name
+  const route = useRoute(); // Use route to get params
+  const { dob, age } = route.params; // Get params from route
+
+  const birthday = new Date(dob); // Assuming dob is a date string
 
   const handleCancel = () => {
-    // Navigate back to DateOfBirthPicker or previous screen
-    navigation.goBack();
+    navigation.goBack(); // Fixed method name
   };
 
   const handleContinue = () => {
-    // Navigate to PreRegistration screen
-    navigation.navigate("PreRegistration", { dob, age });
+    navigation.navigate("PreRegistration", {
+      dob,
+      age,
+      birthday: birthday.toISOString(),
+    });
   };
 
   return (
@@ -26,22 +27,20 @@ export default function AgeCheckScreen({ navigation, route }) {
         {/* Eligibility message */}
         <View style={styles.eligibilityContainer}>
           <Text style={styles.eligibilityText}>
-            Your child is {age} year{age !== 1 ? "s" : ""} old and is
-            eligible for enrollment.
+            Your child is {age} year{age !== 1 ? "s" : ""} old and is eligible
+            for enrollment.
           </Text>
         </View>
 
         {/* Instructional text */}
         <Text style={styles.instructionalText}>
-          Would you like to continue with the pre-registration process? Click Continue to proceed.
+          Would you like to continue with the pre-registration process? Click
+          Continue to proceed.
         </Text>
 
         {/* Buttons */}
         <View style={styles.buttonRow}>
-          <TouchableOpacity
-            style={styles.cancelButton}
-            onPress={handleCancel}
-          >
+          <TouchableOpacity style={styles.cancelButton} onPress={handleCancel}>
             <Text style={styles.buttonText}>Back</Text>
           </TouchableOpacity>
           <TouchableOpacity

@@ -11,8 +11,10 @@ import {
   Alert,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import { useNavigation } from "@react-navigation/native"; // Fixed import
 
-export default function DateOfBirthPicker({ navigation }) {
+export default function DateOfBirthPicker() {
+  const navigation = useNavigation(); // Fixed variable name
   const [birthday, setBirthday] = useState(new Date());
   const [dob, setDob] = useState("");
   const [age, setAge] = useState(null);
@@ -74,11 +76,11 @@ export default function DateOfBirthPicker({ navigation }) {
       return;
     }
 
-    // Direct navigation to AgeCheckScreen with the data
+    // Fixed navigation using React Navigation
     navigation.navigate("AgeCheckScreen", {
       dob: dob,
       age: age,
-      birthday: birthday.toISOString(), // Pass the full date object as string
+      birthday: birthday.toISOString(),
     });
   };
 

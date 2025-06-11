@@ -178,11 +178,12 @@ export default function IdentifyingInformationStep({ route }) {
       >
         <ScrollView
           style={styles.scrollView}
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.scrollContentContainer}
           showsVerticalScrollIndicator={true}
           bounces={true}
           keyboardShouldPersistTaps="handled"
           nestedScrollEnabled={true}
+          scrollEnabled={true}
         >
           <Text style={styles.sectionTitle}>I. Identifying Information</Text>
 
@@ -431,6 +432,9 @@ export default function IdentifyingInformationStep({ route }) {
               />
             </View>
           </View>
+
+          {/* Add extra space at bottom for better scroll experience */}
+          <View style={styles.bottomSpacer} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -449,10 +453,10 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  container: {
+  scrollContentContainer: {
+    flexGrow: 1,
     padding: 16,
-    paddingBottom: 50,
-    minHeight: 800, // Ensure minimum height for scrolling
+    paddingBottom: 100, // Extra space at bottom
   },
   sectionTitle: {
     fontSize: 18,
@@ -466,28 +470,28 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: "600",
-    marginVertical: 8,
+    marginVertical: 3,
   },
   column5: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "space-between",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   column2: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "flex-start",
-    marginBottom: 10,
+    marginBottom: 15,
     gap: 15,
   },
   inputWrapper: {
     width: "19%",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   inputWrapper2: {
     width: "19%",
-    marginBottom: 10,
+    marginBottom: 15,
   },
   fieldContainer: {
     flex: 1,
@@ -500,11 +504,12 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "#fff",
     minHeight: 40,
+    fontSize: 14,
   },
   pickerContainer: {
     flex: 1,
     borderWidth: 1,
-    borderColor: "#d1d5db",
+    borderColor: "#ccc",
     borderRadius: 6,
     backgroundColor: "#fff",
     minHeight: 40,
@@ -512,6 +517,7 @@ const styles = StyleSheet.create({
   },
   picker: {
     height: 40,
+    width: "100%",
   },
   radioGroup: {
     flex: 1,
@@ -556,5 +562,8 @@ const styles = StyleSheet.create({
     marginTop: 4,
     textAlign: "left",
     fontWeight: "450",
+  },
+  bottomSpacer: {
+    height: 50,
   },
 });
