@@ -2,6 +2,7 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import HomePage from "./components/Tabs/HomePage";
 import DateOfBirthPicker from "./components/DateOfBirthPicker";
 import AgeCheckScreen from "./components/AgeCheckScreen";
 import PreRegistrationScreen from "./components/PreRegistrationScreen";
@@ -14,7 +15,13 @@ const Stack = createStackNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="DatePicker">
+      <Stack.Navigator initialRouteName="HomePage">
+        {/* HomePage */}
+        <Stack.Screen
+          name="HomePage"
+          component={HomePage}
+          options={{ headerShown: false }}
+        />
         {/* Then go to DateOfBirthPicker */}
         <Stack.Screen
           name="DatePicker"

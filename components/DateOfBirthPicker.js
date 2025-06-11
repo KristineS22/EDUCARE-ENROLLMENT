@@ -63,8 +63,9 @@ export default function DateOfBirthPicker() {
     setBirthday(new Date());
     setErrors({ birthday: "" });
     setShowDatePicker(false);
+    navigation.goBack(); // Fixed method name
   };
-
+  
   const handleSubmit = () => {
     if (!dob || age === null) {
       Alert.alert("Error", "Please select a valid date of birth.");
