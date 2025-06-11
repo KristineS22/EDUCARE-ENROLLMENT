@@ -507,6 +507,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "#fff",
     minHeight: 40,
+    gap: 20,
   },
   radioButton: {
     flexDirection: "row",

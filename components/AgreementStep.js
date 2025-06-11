@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   agreementText: {
     fontSize: 25,
     color: "#000000",
-    lineHeight: 20,
+    lineHeight: 30,
     marginBottom: 30,
     textAlign: "justify",
   },
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     borderRadius: 3,
     marginRight: 12,
-    marginTop: 2,
+    marginTop: 11,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -91,6 +91,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 30,
     color: "#495057",
-    lineHeight: 20,
+    lineHeight: 36,
   },
 });

@@ -245,6 +245,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#e9ecef",
     marginRight: 12,
+    marginTop: 24,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -270,11 +271,13 @@ const styles = StyleSheet.create({
   },
   stepConnector: {
     position: "absolute",
-    left: 25, // Moved closer to circle (was 30)
+    left: 28, // Moved closer to circle (was 30)
     top: 38, // Started closer to circle (was 44)
+    marginTop: 23 ,
     width: 2.5, // Made thicker (was 2)
-    height: 50, // Made longer for better visibility (was 40)
+    height: 40, // Made longer for better visibility (was 40)
     backgroundColor: "#d1d5db", // Made more visible (was #e9ecef)
+    padding: "0px 0px 0px 0px",
   },
   completedConnector: {
     backgroundColor: "#00188D", 
