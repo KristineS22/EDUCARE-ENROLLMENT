@@ -89,7 +89,7 @@ export default function PreRegistrationScreen() {
   };
 
   // Render current step content
-  const renderStepContent = () => {
+ const renderStepContent = () => {
     switch (currentStep) {
       case 0:
         return (
@@ -99,9 +99,9 @@ export default function PreRegistrationScreen() {
           />
         );
       case 1:
-        return <IdentifyingInformationStep dob={dob} age={age} />;
+        return <IdentifyingInformationStep route={{ params: { dob, age } }} />;
       case 2:
-        return <FamilyInformationStep />;
+        return <FamilyInformationStep route={{ params: { dob, age } }} />;
       // Uncomment when you create these components:
       // case 3:
       //   return <DevelopmentInformationStep />;

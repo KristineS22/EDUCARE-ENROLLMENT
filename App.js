@@ -3,23 +3,47 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
 import HomePage from "./components/Tabs/HomePage";
+import AdmissionPage from "./components/Tabs/AdmissionPage";
+import AboutPage from "./components/Tabs/AboutPage";
+import ContactPage from "./components/Tabs/ContactPage";
 import DateOfBirthPicker from "./components/DateOfBirthPicker";
 import AgeCheckScreen from "./components/AgeCheckScreen";
 import PreRegistrationScreen from "./components/PreRegistrationScreen";
 import AgreementStep from "./components/AgreementStep";
 import IdentifyingInformationStep from "./components/IdentifyingInformationStep";
 import FamilyInformationStep from "./components/FamilyInformationStep";
-
+import TabBasedHome from "./components/Tabs/TabBasedHome";
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="HomePage">
-        {/* HomePage */}
+      <Stack.Navigator initialRouteName="TabBasedHome">
+        <Stack.Screen
+          name="TabBasedHome"
+          component={TabBasedHome}
+          options={{ headerShown: false }}
+        />
+        
+        {/* Individual page screens */}
         <Stack.Screen
           name="HomePage"
           component={HomePage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AdmissionPage"
+          component={AdmissionPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="AboutPage"
+          component={AboutPage}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="ContactPage"
+          component={ContactPage}
           options={{ headerShown: false }}
         />
         {/* Then go to DateOfBirthPicker */}

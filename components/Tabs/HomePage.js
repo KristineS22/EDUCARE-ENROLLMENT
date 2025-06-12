@@ -5,28 +5,31 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
-  ImageBackground,
   Dimensions,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-const { width, height } = Dimensions.get('window');
+const { width, height } = Dimensions.get("window");
 
-export default function HomePage() {
-  const navigation = useNavigation();
-
+export default function HomePage({ onNavigate, onNavigateToEnrollment, onNavigateToContact }) {
   const handleEnrollHere = () => {
-    navigation.navigate("DatePicker");
+    if (onNavigateToEnrollment) {
+      onNavigateToEnrollment();
+    } else {
+      onNavigate("Admission");
+    }
   };
 
   const handleLoginToPortal = () => {
-    // Navigate to login screen when implemented
     console.log("Navigate to login portal");
+    // You can add portal navigation logic here
   };
 
   const handleInquireNow = () => {
-    // Navigate to inquiry screen when implemented
-    console.log("Navigate to inquiry screen");
+    if (onNavigateToContact) {
+      onNavigateToContact();
+    } else {
+      onNavigate("Contact");
+    }
   };
 
   return (
@@ -36,7 +39,8 @@ export default function HomePage() {
         <View style={styles.heroOverlay}>
           <View style={styles.heroContent}>
             <Text style={styles.heroTitle}>
-              Services for kids combines daycare services with Montessori-type education. There's at least one in your barangay.
+              Services for kids combines daycare services with Montessori-type
+              education. There's at least one in your barangay.
             </Text>
           </View>
         </View>
@@ -46,7 +50,7 @@ export default function HomePage() {
       <View style={styles.servicesSection}>
         <View style={styles.servicesContainer}>
           {/* Enrollment Card */}
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.serviceCard}
             onPress={handleEnrollHere}
             activeOpacity={0.8}
@@ -56,8 +60,10 @@ export default function HomePage() {
                 <Text style={styles.iconText}>📝</Text>
               </View>
             </View>
-            <Text style={styles.cardTitle}>Preschoolers, are you ready for school?</Text>
-            <TouchableOpacity 
+            <Text style={styles.cardTitle}>
+              Preschoolers, are you ready for school?
+            </Text>
+            <TouchableOpacity
               style={styles.cardButton}
               onPress={handleEnrollHere}
             >
@@ -66,7 +72,7 @@ export default function HomePage() {
           </TouchableOpacity>
 
           {/* Login Portal Card */}
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.serviceCard}
             onPress={handleLoginToPortal}
             activeOpacity={0.8}
@@ -77,7 +83,7 @@ export default function HomePage() {
               </View>
             </View>
             <Text style={styles.cardTitle}>Login portal to see updates</Text>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.cardButton}
               onPress={handleLoginToPortal}
             >
@@ -86,7 +92,7 @@ export default function HomePage() {
           </TouchableOpacity>
 
           {/* Inquiry Card */}
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.serviceCard}
             onPress={handleInquireNow}
             activeOpacity={0.8}
@@ -97,7 +103,7 @@ export default function HomePage() {
               </View>
             </View>
             <Text style={styles.cardTitle}>Request for more information</Text>
-            <TouchableOpacity 
+            <TouchableOpacity
               style={styles.cardButton}
               onPress={handleInquireNow}
             >
@@ -113,112 +119,113 @@ export default function HomePage() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
   },
   heroSection: {
     height: height * 0.6,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#00188D', // Added solid background color
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#00188D",
   },
   heroOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(0, 24, 141, 0.3)', // Lighter overlay since we have solid background
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "rgba(0, 24, 141, 0.3)",
+    justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 20,
   },
   heroContent: {
-    alignItems: 'center',
-    maxWidth: '90%',
+    alignItems: "center",
+    maxWidth: "90%",
   },
   heroTitle: {
     fontSize: 28,
-    fontWeight: 'bold',
-    color: 'white',
-    textAlign: 'center',
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
     lineHeight: 36,
-    textShadowColor: 'rgba(0, 0, 0, 0.5)',
+    textShadowColor: "rgba(0, 0, 0, 0.5)",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
   },
   servicesSection: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#000",
     marginTop: -50,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingTop: 40,
     paddingBottom: 40,
     minHeight: height * 0.5,
+    justifyContent: "center",
+    alignItems: "center",
   },
   servicesContainer: {
-    paddingHorizontal: 20,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
     gap: 20,
   },
   serviceCard: {
-    backgroundColor: '#ffffff',
+    backgroundColor: "#ffffff",
     borderRadius: 20,
-    padding: 25,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
+    padding: 20,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,
-    alignItems: 'center',
-    marginBottom: 10,
+    alignItems: "center",
+    width: width * 0.25,
+    minHeight: 180,
   },
   cardIcon: {
     marginBottom: 15,
   },
   enrollmentIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#E3F2FD',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#E3F2FD",
+    justifyContent: "center",
+    alignItems: "center",
   },
   loginIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#FFF3E0',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#FFF3E0",
+    justifyContent: "center",
+    alignItems: "center",
   },
   inquiryIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    backgroundColor: '#FFEBEE',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "#FFEBEE",
+    justifyContent: "center",
+    alignItems: "center",
   },
   iconText: {
-    fontSize: 24,
+    fontSize: 20,
   },
   cardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#333',
-    textAlign: 'center',
-    marginBottom: 20,
-    lineHeight: 22,
+    fontSize: 12,
+    fontWeight: "600",
+    color: "#333",
+    textAlign: "center",
+    marginBottom: 15,
+    lineHeight: 16,
   },
   cardButton: {
-    backgroundColor: '#00188D',
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 25,
-    minWidth: 140,
+    backgroundColor: "#00188D",
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderRadius: 20,
+    minWidth: 100,
   },
   cardButtonText: {
-    color: 'white',
-    fontSize: 14,
-    fontWeight: '600',
-    textAlign: 'center',
+    color: "white",
+    fontSize: 10,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });

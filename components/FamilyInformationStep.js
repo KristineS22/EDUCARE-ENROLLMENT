@@ -23,7 +23,10 @@ import {
   occupationOptions,
 } from './DataOptions';
 
-export default function FamilyInformationStep() {
+export default function FamilyInformationStep({ route }) {
+  // Get the data passed from previous screens (now properly connected)
+  const { dob, age } = route?.params || {};
+
   const [form, setForm] = useState({
     // Parent/Guardian
     lastName: '',
@@ -105,18 +108,12 @@ export default function FamilyInformationStep() {
       <TextInput
         style={styles.input}
         placeholder={placeholder}
+        placeholderTextColor="#A0A0A0"
         value={value}
         onChangeText={onChangeText}
         keyboardType={keyboardType}
       />
       <Text style={styles.sublabel}>{sublabel}</Text>
-    </View>
-  );
-
-  const EmptyField = () => (
-    <View style={styles.fieldContainer}>
-      <View style={styles.emptySpace} />
-      <Text style={styles.sublabel}> </Text>
     </View>
   );
 
@@ -128,16 +125,17 @@ export default function FamilyInformationStep() {
       >
         <ScrollView
           style={styles.scrollView}
-          contentContainerStyle={styles.container}
+          contentContainerStyle={styles.scrollContentContainer}
           showsVerticalScrollIndicator={true}
           bounces={true}
           keyboardShouldPersistTaps="handled"
           nestedScrollEnabled={true}
+          scrollEnabled={true}
         >
           <Text style={styles.sectionTitle}>II. Family Information</Text>
 
           {/* Parent/Guardian Info */}
-          <Text style={styles.label}>Parent/Guardian Information</Text>
+          <Text style={styles.label}>Parent/Guardian Information *</Text>
           
           {/* Name Row */}
           <View style={styles.row}>
@@ -233,12 +231,16 @@ export default function FamilyInformationStep() {
               />
             </View>
             <View style={styles.inputWrapper}>
-              <EmptyField />
+              {/* Empty field placeholder */}
+              <View style={styles.fieldContainer}>
+                <View style={styles.emptySpace} />
+                <Text style={styles.sublabel}> </Text>
+              </View>
             </View>
           </View>
 
           {/* Emergency Contact Info */}
-          <Text style={styles.label}>Emergency Contact Information</Text>
+          <Text style={styles.label}>Emergency Contact Information *</Text>
           
           {/* Emergency Contact Name Row */}
           <View style={styles.row}>
@@ -343,6 +345,9 @@ export default function FamilyInformationStep() {
               />
             </View>
           </View>
+
+          {/* Add extra space at bottom for better scroll experience */}
+          <View style={styles.bottomSpacer} />
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
@@ -361,10 +366,10 @@ const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
   },
-  container: {
+  scrollContentContainer: {
+    flexGrow: 1,
     padding: 16,
-    paddingBottom: 50,
-    minHeight: 800,
+    paddingBottom: 100, // Extra space at bottom
   },
   sectionTitle: {
     fontSize: 18,
@@ -374,20 +379,21 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 12,
     marginBottom: 20,
-    color: '#333',
   },
   label: {
     fontSize: 14,
     fontWeight: "600",
-    marginVertical: 8,
+    marginVertical: 3,
   },
   row: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
-    marginBottom: 10,
+    marginBottom: 15,
   },
   inputWrapper: {
     width: '24%',
+    marginBottom: 15,
   },
   fieldContainer: {
     flex: 1,
@@ -396,17 +402,16 @@ const styles = StyleSheet.create({
     flex: 1,
     borderWidth: 1,
     borderColor: '#ccc',
-    borderRadius: 6,
     padding: 10,
+    borderRadius: 6,
     backgroundColor: '#fff',
-    fontSize: 14,
     minHeight: 40,
+    fontSize: 14,
   },
   radioGroup: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around',
     paddingHorizontal: 6,
     paddingVertical: 10,
     borderWidth: 1,
@@ -414,10 +419,16 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: '#fff',
     minHeight: 40,
+    gap: 25,
   },
   radioButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    marginRight: 8,
+  },
+  radioText: {
+    marginLeft: 4,
+    fontSize: 12,
   },
   circle: {
     height: 18,
@@ -427,17 +438,12 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 4,
   },
   checked: {
-    width: 10,
-    height: 10,
-    borderRadius: 5,
-    backgroundColor: '#000',
-  },
-  radioText: {
-    fontSize: 12,
-    color: '#333',
+    height: 15,
+    width: 15,
+    borderRadius: 9,
+    backgroundColor: '#00188D',
   },
   pickerContainer: {
     flex: 1,
@@ -447,10 +453,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     minHeight: 40,
     justifyContent: 'center',
-    paddingHorizontal: 0,
   },
   picker: {
-    height: 50,
+    height: 40,
     width: '100%',
+  },
+  sublabel: {
+    fontSize: 11,
+    color: "#000",
+    marginTop: 4,
+    textAlign: "left",
+    fontWeight: "450",
+  },
+  emptySpace: {
+    minHeight: 40,
+    backgroundColor: 'transparent',
+  },
+  bottomSpacer: {
+    height: 50,
   },
 });
